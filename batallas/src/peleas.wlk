@@ -17,7 +17,9 @@ method eergiaTotalDelEquipo(unEquipo){
         return unEquipo.sum({personaje => personaje.getEnergia()})
     }
 //este me costo pero creo que si hago con un if y preguntado si las sumatorias es mayor una que otra 
-// a demas de poner en Personajes el method
+// a demas de poner en Personajes el methodç
+// al principio lo habia pensado diferente, como que todos metodos pero me di cuenta que estaba mal
+
 method gritosTotalesDe(){
         self.peleaporEqipo()
         if (self.eergiaTotalDelEquipo(equipo1) > self.eergiaTotalDelEquipo(equipo2)){

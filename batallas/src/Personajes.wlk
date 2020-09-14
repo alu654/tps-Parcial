@@ -4,9 +4,12 @@ object pamela{
 	var energiaInicial = 60000
 	const grito = "Acá pasó la Pamela" 
 	
-	method manoAmano()= energiaInicial * 4000
+	method manoAmano(){
+		energiaInicial += 400
+		
+		}
 	method obtenerEnergia() = energiaInicial
-	method objetos() = objetos
+	method objetos() =  return objetos
 	
 	method tamanodeObjetos()= {
 		return objetos.size()

@@ -6,10 +6,9 @@ describe "Tests de centrales" {
 	test "grito de Pocardo" {
 		assert.that(pocardo.grito()== "¡Siente el poder de la música!")
 	}
+	// este test no me da, no se porque pero deberia dar...
 	test "ultimo elemento de Pocardo" {
-		assert.that(pocardo.agarrarUltimo()== "cotones")
+		assert.that(pocardo.agarrarUltimo() == "cotones")
 	}
-	
-
 	
 }
