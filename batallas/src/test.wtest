@@ -1,0 +1,15 @@
+import peleas.*
+import Personajes.*
+describe "Tests de centrales" {
+
+
+	test "grito de Pocardo" {
+		assert.that(pocardo.grito()== "¡Siente el poder de la música!")
+	}
+	test "ultimo elemento de Pocardo" {
+		assert.that(pocardo.agarrarUltimo()== "cotones")
+	}
+	
+
+	
+}
