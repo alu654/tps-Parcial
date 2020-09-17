@@ -8,7 +8,7 @@ object burns {
 		cantVarillas = varillas
 	}
 
-	method calcularEnergia(riqueza, viento) {
+	method calcularEnergia(_, __) {
 		return (100000 * cantVarillas)
 	}
 
@@ -18,7 +18,7 @@ object burns {
 
 }
 
-object ex_bosque {
+object exBosque {
 
 	var toneladas
 
@@ -26,7 +26,7 @@ object ex_bosque {
 		toneladas = capacidad
 	}
 
-	method calcularEnergia(riqueza, viento) {
+	method calcularEnergia(riqueza, _) {
 		return 500000 + toneladas * riqueza * 1000000
 	}
 
@@ -36,12 +36,12 @@ object ex_bosque {
 
 }
 
-object el_suspiro {
+object elSuspiro {
 
 	var turbinas = #{ unaTurbina }
 
-	method calcularEnergia(riqueza, viento) {
-		return turbinas.map{ turbina => turbina.produccionDeTurbina(viento) }.sum()
+	method calcularEnergia(_, viento) {
+		return turbinas.sum{ turbina => turbina.produccionDeTurbina(viento) }
 	}
 
 	method tieneContaminacion() {

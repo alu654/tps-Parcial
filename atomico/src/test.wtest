@@ -6,36 +6,39 @@ describe "Tests de centrales" {
 
 	fixture {
 		burns.cantVarillas(10)
-		ex_bosque.toneladas(20)
+		exBosque.toneladas(20)
+		springfield.setDeProducciones()
 	}
 
 	test "burns con 10 barillas produce 1M kWh" {
-		assert.that(springfield.produccionEnergetica(burns) == 1000000)
+		assert.equals(1000000, springfield.produccionEnergetica(burns))
 	}
 
 	test "ex bosque con 20 toneladas produce 18.5 M kWh" {
-		assert.that(springfield.produccionEnergetica(ex_bosque) == 18500000)
+		assert.that(springfield.produccionEnergetica(exBosque) == 18500000)
 	}
 
 	test "el suspiro produce 2M kWh" {
-		assert.that(springfield.produccionEnergetica(el_suspiro) == 2000000)
+		assert.that(springfield.produccionEnergetica(elSuspiro) == 2000000)
 	}
 
 	test "ex bosque es la unica central contaminante de springfield" {
-		assert.that(springfield.centralesContaminantes() == [ ex_bosque ])
+		assert.that(springfield.centralesContaminantes() == [ exBosque ])
 	}
 
 	test "springfield cubre su necesidad energetica si esta es 20" {
 		springfield.necesidadEnergetica(20)
 		assert.that(springfield.cubreSusNecesidades())
 	}
+
 	test "springfield esta al horno si su necesidad energetica es 30" {
 		springfield.necesidadEnergetica(30)
 		assert.that(springfield.estaEnElHorno())
 	}
-	test "ex bosque y hidroelectrica son las mas productoras de la region"{
-		
-		assert.that(region.centralesMasProductoras() == #{ex_bosque, hidroelectrica})
+
+	test "ex bosque y hidroelectrica son las mas productoras de la region" {
+		assert.that(region.centralesMasProductoras() == #{ exBosque, hidroelectrica })
 	}
+
 }
 

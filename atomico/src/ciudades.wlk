@@ -2,13 +2,13 @@ import centrales.*
 
 object springfield {
 
-	const viento = 10
-	const riqueza = 0.9
+	var viento = 10
+	var riqueza = 0.9
 	var necesidadEnergetica
-	var centrales = [ burns, ex_bosque, el_suspiro ]
-	var setDeProducciones = centrales.map{ central => self.produccionEnergetica(central) }
+	var centrales = [ burns, exBosque, elSuspiro ]
+	var setDeProducciones
 	var aportanMasDel50PorCiento
-	var noSonContaminantes
+	var sonContaminantes
 
 //punto 1
 	method produccionEnergetica(unaCentral) {
@@ -25,6 +25,11 @@ object springfield {
 	}
 
 //punto 3
+	method setDeProducciones(){
+		setDeProducciones = centrales.map{ central => self.produccionEnergetica(central) }
+	}
+
+
 	method cubreSusNecesidades() {
 		return setDeProducciones.sum() > necesidadEnergetica
 	}
@@ -36,12 +41,12 @@ object springfield {
 		return setDeProducciones.all{ produccion => produccion > (0.5 * necesidadEnergetica)}
 	}
 
-	method noSonContaminantes() {
-		return self.centralesContaminantes().size() == 0
+	method sonContaminantes() {
+		return self.centralesContaminantes().size() == centrales.size()
 	}
-
+	
 	method estaEnElHorno() {
-		return self.aportanMasDel50PorCiento() || self.noSonContaminantes()
+		return self.aportanMasDel50PorCiento() || self.sonContaminantes()
 	}
 
 	method centralesOrdenadas() {
@@ -52,7 +57,7 @@ object springfield {
 
 object albuquerque {
 
-	const caudal = 150
+	var caudal = 150
 	var centrales = [ hidroelectrica ]
 
 	method produccionEnergetica(unaCentral) {

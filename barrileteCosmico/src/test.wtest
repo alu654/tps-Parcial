@@ -1,0 +1,80 @@
+import usuarios.*
+import destinos.*
+import barrileteCosmico.barrilete
+
+describe "al aplicar 25% de descuento:" {
+
+	fixture {
+		barrilete.aplicarDescuentos(0.25)
+	}
+
+	test "lastToninas con 25% de descuento sale 2625" {
+		assert.equals(2625, lastToninas.precio())
+	}
+
+	test "lastToninas tiene un certificado como parte de su equipaje" {
+		assert.that(lastToninas.equipaje().contains("Certificado de descuento"))
+	}
+
+}
+
+describe "tests de destinos sin aplicar descuento" {
+
+	test "los destinos mas importantes de BC son garlicsSea y lastToninas" {
+		assert.equals(#{ garlicsSea, lastToninas }, barrilete.destinosMasImportantes())
+	}
+
+	test "silversSea no es un destino peligroso" {
+		assert.that(!silversSea.esPeligroso())
+	}
+
+	test "los destinos mas peligrosos hasta el momento son lastToninas" {
+		assert.equals(#{ lastToninas }, barrilete.destinos().filter{ destino => destino.esPeligroso()})
+	}
+
+	test "barrilete cosmico es una empresa extrema" {
+		assert.that(barrilete.esUnaEmpresaExtrema())
+	}
+
+	test "los destinos de barrilete cosmico son Last Toninas, Garlic´s sea, Good Airs y Silver's Sea." {
+		assert.equals(#{ "Garlic's Sea", "Silver's Sea", "Last Toninas", "Good Airs" }, barrilete.cartaDeDestinos().asSet())
+	}
+
+	test "PHari tiene 500km" {
+		assert.equals(500, barrilete.kilometrosDeUnUsuario(pabloHari))
+	}
+
+}
+
+describe "al aplicar 15% de descuento:" {
+
+	fixture {
+		barrilete.aplicarDescuentos(0.15)
+	}
+
+	test "los precios finales son 2125, 1147.5, 2975, 1275 (respectivamente) y todos poseen certificado de desc" {
+		assert.equals(2125, garlicsSea.precio())
+		assert.equals(1147.5, silversSea.precio())
+		assert.equals(2975, lastToninas.precio())
+		assert.equals(1275, goodAirs.precio())
+		assert.that(barrilete.destinos().all{ destino => destino.equipaje().contains("Certificado de descuento")})
+	}
+
+}
+
+describe "tests si PHari viaja a Silver's sea" {
+
+	fixture {
+		barrilete.volarAUnDestino(pabloHari, silversSea)
+	}
+
+	test "pHari puede volar, silvers Sea pertenece a su historial" {
+		assert.that(pabloHari.destinos().contains(silversSea))
+	}
+
+	test "phari queda con 150 en su cuenta" {
+		assert.equals(150, pabloHari.cuenta())
+	}
+
+}
+
