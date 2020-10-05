@@ -24,6 +24,15 @@ object garlicsSea {
 		return equipaje.any{ elemento => elemento.contains("Vacuna") }
 	}
 
+	method esDestacado() {
+		return precio > 2000
+	}
+
+	method aplicarDescuento(unDescuento) {
+		self.precio(precio * (1 - unDescuento))
+		equipaje.add("Certificado de descuento")
+	}
+
 }
 
 object silversSea {
@@ -50,6 +59,15 @@ object silversSea {
 
 	method esPeligroso() {
 		return equipaje.any{ elemento => elemento.contains("Vacuna") }
+	}
+
+	method esDestacado() {
+		return precio > 2000
+	}
+
+	method aplicarDescuento(unDescuento) {
+		self.precio(precio * (1 - unDescuento))
+		equipaje.add("Certificado de descuento")
 	}
 
 }
@@ -80,6 +98,15 @@ object lastToninas {
 		return equipaje.any{ elemento => elemento.contains("Vacuna") }
 	}
 
+	method esDestacado() {
+		return precio > 2000
+	}
+
+	method aplicarDescuento(unDescuento) {
+		self.precio(precio * (1 - unDescuento))
+		equipaje.add("Certificado de descuento")
+	}
+
 }
 
 object goodAirs {
@@ -106,6 +133,15 @@ object goodAirs {
 
 	method esPeligroso() {
 		return equipaje.any{ elemento => elemento.contains("Vacuna") }
+	}
+
+	method esDestacado() {
+		return precio > 2000
+	}
+
+	method aplicarDescuento(unDescuento) {
+		self.precio(precio * (1 - unDescuento))
+		equipaje.add("Certificado de descuento")
 	}
 
 }

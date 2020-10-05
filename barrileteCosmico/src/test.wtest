@@ -41,7 +41,7 @@ describe "tests de destinos sin aplicar descuento" {
 	}
 
 	test "PHari tiene 500km" {
-		assert.equals(500, barrilete.kilometrosDeUnUsuario(pabloHari))
+		assert.equals(500, pabloHari.kilometrosDeUnUsuario())
 	}
 
 }
@@ -65,7 +65,7 @@ describe "al aplicar 15% de descuento:" {
 describe "tests si PHari viaja a Silver's sea" {
 
 	fixture {
-		barrilete.volarAUnDestino(pabloHari, silversSea)
+		pabloHari.volarAUnDestino(silversSea)
 	}
 
 	test "pHari puede volar, silvers Sea pertenece a su historial" {
