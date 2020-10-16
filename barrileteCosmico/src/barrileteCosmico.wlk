@@ -1,32 +1,42 @@
-import destinos.*
+import localidades.*
 import usuarios.*
+import mediosDeTransporte.*
 
 object barrilete {
 
-	var destinos = #{ garlicsSea, silversSea, lastToninas, goodAirs }
+	var localidades = #{ garlicsSea, silversSea, lastToninas, goodAirs }
+	var transportes = #{ }
 
-	method destinos() {
-		return destinos
+	method localidades() {
+		return localidades
 	}
-
+	
+	method transportes() {
+		return transportes
+	}
+	
 //punto 1
 	method destinosMasImportantes() {
-		return destinos.filter{ destino => destino.esDestacado() }
+		return localidades.filter{ localidad => localidad.esDestacado() }
 	}
 
 //punto 2
 	method aplicarDescuentos(unDescuento) {
-		destinos.forEach{ destino => destino.aplicarDescuento(unDescuento)}
+		localidades.forEach{ localidad => localidad.aplicarDescuento(unDescuento)}
 	}
 
 //punto 3
 	method esUnaEmpresaExtrema() {
-		return destinos.any{ destino => destino.esPeligroso() }
+		return localidades.any{ localidad => localidad.esPeligroso() }
 	}
 
 //punto 4
 	method cartaDeDestinos() {
-		return self.destinos().map{ destino => destino.nombre() }
+		return localidades.map{ localidad => localidad.nombre() }
+	}
+	
+	method algunTransporte(){
+		return transportes.anyOne()
 	}
 
 }
