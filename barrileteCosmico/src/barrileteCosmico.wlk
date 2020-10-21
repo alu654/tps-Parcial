@@ -34,10 +34,5 @@ object barrilete {
 	method cartaDeDestinos() {
 		return localidades.map{ localidad => localidad.nombre() }
 	}
-	
-	method algunTransporte(){
-		return transportes.anyOne()
-	}
-
 }
 

@@ -2,6 +2,7 @@ import usuarios.*
 import localidades.*
 import barrileteCosmico.barrilete
 import mediosDeTransporte.*
+import viajes.*
 
 describe "al aplicar 25% de descuento:" {
 
@@ -53,10 +54,13 @@ describe "tests de destinos sin aplicar descuento" {
 
 describe "al aplicar 15% de descuento: y si quiere viajar a good Airs" {
 
+	const transporteX = new MedioDeTransporte(tiempoQueTarda = 3, costoPorKilometro = 0.45)
+	const viajeX = new Viaje(origen = lastToninas, destino = goodAirs, transporte = transporteX)
+
 	fixture {
 		barrilete.aplicarDescuentos(0.15)
-		barrilete.transportes().add(new MedioDeTransporte(tiempoQueTarda = 3, costoPorKilometro = 0.45))
-		pabloHari.viajarHacia(goodAirs)
+		barrilete.transportes().add(transporteX)
+		pabloHari.viajarHacia(goodAirs, transporteX)
 	}
 
 	test "los precios finales sin transporte son 2125, 1147.5, 2975, 1275 (respectivamente) y todos poseen certificado de desc" {
@@ -66,10 +70,10 @@ describe "al aplicar 15% de descuento: y si quiere viajar a good Airs" {
 		assert.equals(1275, goodAirs.precio())
 		assert.that(barrilete.localidades().all{ localidad => localidad.equipaje().contains("Certificado de descuento")})
 	}
-	
-	test "si viajara a goodAirs con 15% descuento, le alcanza justo para ir en un transporte de costo 0.45/KM"{		
+
+	test "si viajara a goodAirs con 15% descuento, le alcanza justo para ir en un transporte de costo 0.45/KM" {
 		assert.equals(goodAirs, pabloHari.localidad())
-		assert.that(pabloHari.viajes().contains(goodAirs))
+		assert.that(pabloHari.viajes().contains(viajeX))
 		assert.equals(0, pabloHari.cuenta())
 	}
 
@@ -77,22 +81,26 @@ describe "al aplicar 15% de descuento: y si quiere viajar a good Airs" {
 
 describe "tests si PHari viaja a Silver's sea en un transporte cuyo costo por kilometro es 5" {
 
+	const transporteX = new MedioDeTransporte(tiempoQueTarda = 3, costoPorKilometro = 5)
+	const viajeX = new Viaje(origen = lastToninas, destino = silversSea, transporte = transporteX)
+	
 	fixture {
-		barrilete.transportes().add(new MedioDeTransporte(tiempoQueTarda = 3, costoPorKilometro = 5))
-		pabloHari.viajarHacia(silversSea)
+		barrilete.transportes().add(transporteX)
+		pabloHari.viajarHacia(silversSea, transporteX)
 	}
 
 	test "pHari puede viajar, silvers Sea pertenece a su historial" {
-		assert.that(pabloHari.viajes().contains(silversSea))
+		assert.that(pabloHari.viajes().contains(viajeX))
 	}
 
 	test "phari le alcanza justo para ir a silver's sea (0 pesos en cuenta)" {
 		assert.equals(0, pabloHari.cuenta())
 	}
-	
+
 	test "a phari no le alcanza para viajar de silversSea a good airs (ciudad destino == ciudad origen)" {
-		pabloHari.viajarHacia(goodAirs)
+		pabloHari.viajarHacia(goodAirs, transporteX)
 		assert.equals(silversSea, pabloHari.localidad())
 	}
+
 }
 

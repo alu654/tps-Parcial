@@ -1,5 +1,7 @@
 import localidades.*
 import barrileteCosmico.*
+import viajes.*
+import mediosDeTransporte.*
 
 class Usuario {
 
@@ -34,20 +36,19 @@ class Usuario {
 	}
 
 //punto 5
-	method viajarHacia(localidadDestino) {
-		const precioKM = barrilete.algunTransporte().costoPorKilometro()
-		const precioDeViaje = (self.localidad().distanciaHasta(localidadDestino)) * precioKM
-		const precioTotal = localidadDestino.precio() + precioDeViaje
-		if (precioTotal <= cuenta) {
-			viajes.add(localidadDestino)
-			self.cuenta(cuenta - precioTotal)
-			self.localidad(localidadDestino)
+	method viajarHacia(unDestino, unTransporte) {
+		const unViaje = new Viaje(origen = localidad, destino = unDestino, transporte = unTransporte)
+		const precio = unViaje.calcularPrecio()
+		if (precio <= cuenta) {
+			self.viajes().add(unViaje)
+			cuenta -= precio
+			self.localidad(unDestino)
 		}
 	}
 
 //punto 6
 	method kilometrosDeUnUsuario() {
-		return viajes.map{ unaLocalidad => unaLocalidad.distanciaHasta(localidad) }.sum()
+		return viajes.map{ unViaje => unViaje.origen().distanciaHasta(unViaje.destino()) }.sum()
 	}
 
 //punto 7
@@ -58,5 +59,5 @@ class Usuario {
 
 }
 
-const pabloHari = new Usuario(nombreDeUsuario = "PHari", viajes = #{ lastToninas, goodAirs }, cuenta = 1500, seguidores = #{}, localidad = lastToninas)
+const pabloHari = new Usuario(nombreDeUsuario = "PHari", viajes = [ new Viaje(origen = lastToninas, destino = goodAirs, transporte = medioTransporteX) ], cuenta = 1500, seguidores = #{}, localidad = lastToninas)
 
