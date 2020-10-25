@@ -36,14 +36,17 @@ class Usuario {
 	}
 
 //punto 5
-	method viajarHacia(unDestino, unTransporte) {
-		const unViaje = new Viaje(origen = localidad, destino = unDestino, transporte = unTransporte)
+	method viajar(unViaje) {
 		const precio = unViaje.calcularPrecio()
 		if (precio <= cuenta) {
 			self.viajes().add(unViaje)
 			cuenta -= precio
-			self.localidad(unDestino)
+			self.localidad(unViaje.destino())
 		}
+	}
+
+	method crearViaje(unDestino, unTransporte) {
+		return new Viaje(origen = localidad, destino = unDestino, transporte = unTransporte)
 	}
 
 //punto 6
@@ -59,5 +62,5 @@ class Usuario {
 
 }
 
-const pabloHari = new Usuario(nombreDeUsuario = "PHari", viajes = [ new Viaje(origen = lastToninas, destino = goodAirs, transporte = medioTransporteX) ], cuenta = 1500, seguidores = #{}, localidad = lastToninas)
+const pabloHari = new Usuario(nombreDeUsuario = "PHari", viajes = [ unViajeX ], cuenta = 1500, seguidores = #{}, localidad = lastToninas)
 

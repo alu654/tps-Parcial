@@ -7,4 +7,4 @@ class MedioDeTransporte {
 	}
 }
 
-const medioTransporteX = new MedioDeTransporte(tiempoQueTarda = 0, costoPorKilometro = 0)
+const unTransporteX = new MedioDeTransporte(tiempoQueTarda = 0, costoPorKilometro = 0)

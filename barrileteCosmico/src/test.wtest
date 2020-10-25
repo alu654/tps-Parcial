@@ -55,12 +55,12 @@ describe "tests de destinos sin aplicar descuento" {
 describe "al aplicar 15% de descuento: y si quiere viajar a good Airs" {
 
 	const transporteX = new MedioDeTransporte(tiempoQueTarda = 3, costoPorKilometro = 0.45)
-	const viajeX = new Viaje(origen = lastToninas, destino = goodAirs, transporte = transporteX)
+	const unViaje= pabloHari.crearViaje(goodAirs, transporteX)
 
 	fixture {
 		barrilete.aplicarDescuentos(0.15)
 		barrilete.transportes().add(transporteX)
-		pabloHari.viajarHacia(goodAirs, transporteX)
+		pabloHari.viajar(unViaje)
 	}
 
 	test "los precios finales sin transporte son 2125, 1147.5, 2975, 1275 (respectivamente) y todos poseen certificado de desc" {
@@ -73,7 +73,7 @@ describe "al aplicar 15% de descuento: y si quiere viajar a good Airs" {
 
 	test "si viajara a goodAirs con 15% descuento, le alcanza justo para ir en un transporte de costo 0.45/KM" {
 		assert.equals(goodAirs, pabloHari.localidad())
-		assert.that(pabloHari.viajes().contains(viajeX))
+		assert.that(pabloHari.viajes().contains(unViaje))
 		assert.equals(0, pabloHari.cuenta())
 	}
 
@@ -82,15 +82,15 @@ describe "al aplicar 15% de descuento: y si quiere viajar a good Airs" {
 describe "tests si PHari viaja a Silver's sea en un transporte cuyo costo por kilometro es 5" {
 
 	const transporteX = new MedioDeTransporte(tiempoQueTarda = 3, costoPorKilometro = 5)
-	const viajeX = new Viaje(origen = lastToninas, destino = silversSea, transporte = transporteX)
+	const unViaje = pabloHari.crearViaje(silversSea, transporteX)
 	
 	fixture {
 		barrilete.transportes().add(transporteX)
-		pabloHari.viajarHacia(silversSea, transporteX)
+		pabloHari.viajar(unViaje)
 	}
 
 	test "pHari puede viajar, silvers Sea pertenece a su historial" {
-		assert.that(pabloHari.viajes().contains(viajeX))
+		assert.that(pabloHari.viajes().contains(unViaje))
 	}
 
 	test "phari le alcanza justo para ir a silver's sea (0 pesos en cuenta)" {
@@ -98,7 +98,8 @@ describe "tests si PHari viaja a Silver's sea en un transporte cuyo costo por ki
 	}
 
 	test "a phari no le alcanza para viajar de silversSea a good airs (ciudad destino == ciudad origen)" {
-		pabloHari.viajarHacia(goodAirs, transporteX)
+		const otroViaje = pabloHari.crearViaje(goodAirs, transporteX)
+		pabloHari.viajar(otroViaje)
 		assert.equals(silversSea, pabloHari.localidad())
 	}
 
