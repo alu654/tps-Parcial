@@ -2,6 +2,7 @@ import localidades.*
 import barrileteCosmico.*
 import viajes.*
 import mediosDeTransporte.*
+import perfiles.*
 
 class Usuario {
 
@@ -10,7 +11,16 @@ class Usuario {
 	var cuenta
 	var seguidores
 	var localidad
+	var perfil
 
+	method perfil(){
+		return perfil
+	}
+	
+	method perfil(unPerfil){
+		perfil = unPerfil
+	}
+	
 	method viajes() {
 		return viajes
 	}
@@ -51,7 +61,7 @@ class Usuario {
 
 //punto 6
 	method kilometrosDeUnUsuario() {
-		return viajes.map{ unViaje => unViaje.origen().distanciaHasta(unViaje.destino()) }.sum()
+		return viajes.sum({ unViaje => unViaje.origen().distanciaHasta(unViaje.destino()) })
 	}
 
 //punto 7
@@ -60,7 +70,12 @@ class Usuario {
 		otroUsuario.seguidores().add(self)
 	}
 
+	method puedePagarTransporteHasta(unTransporte, unDestino){
+		const unViaje = self.crearViaje(unDestino, unTransporte)
+		return unViaje.calcularPrecio() <= cuenta
+	}
+
 }
 
-const pabloHari = new Usuario(nombreDeUsuario = "PHari", viajes = [ unViajeX ], cuenta = 1500, seguidores = #{}, localidad = lastToninas)
+const pabloHari = new Usuario(nombreDeUsuario = "PHari", viajes = [ unViajeX ], cuenta = 1500, seguidores = #{}, localidad = lastToninas, perfil = empresarial)
 

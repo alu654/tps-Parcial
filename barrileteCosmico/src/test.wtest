@@ -3,6 +3,8 @@ import localidades.*
 import barrileteCosmico.barrilete
 import mediosDeTransporte.*
 import viajes.*
+import perfiles.*
+import turbinas.*
 
 describe "al aplicar 25% de descuento:" {
 
@@ -102,6 +104,35 @@ describe "tests si PHari viaja a Silver's sea en un transporte cuyo costo por ki
 		pabloHari.viajar(otroViaje)
 		assert.equals(silversSea, pabloHari.localidad())
 	}
+}
 
+describe "pHari con perfil empresarial quiere viajar a la playa de GarlicsSea con 80% de descuento" {
+	
+	fixture{
+		barrilete.aplicarDescuentos(0.8)
+	}
+	
+	test "pablo hari viaja en tren si es empresarial "{
+		pabloHari.perfil(empresarial)
+		assert.equals(tren, pabloHari.perfil().determinarTransporte(pabloHari, garlicsSea))
+	}
+	
+	test "pablo hari viaja en barco si es estudiantil"{
+		pabloHari.perfil(estudiantil)
+		assert.equals(barco, pabloHari.perfil().determinarTransporte(pabloHari, garlicsSea))
+	}
+	
+}
+
+describe "tests para caracteristicas de localidades"{
+	
+	test "last toninas como ciudad historica es peligrosa y destacada"{
+		assert.that(lastToninas.esPeligroso())
+		assert.that(lastToninas.esDestacado())
+	}
+	test "garlics sea nunca es peligroso"{
+		assert.that(!garlicsSea.esPeligroso())
+	}
+	
 }
 

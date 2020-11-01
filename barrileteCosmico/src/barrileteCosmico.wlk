@@ -5,7 +5,7 @@ import mediosDeTransporte.*
 object barrilete {
 
 	var localidades = #{ garlicsSea, silversSea, lastToninas, goodAirs }
-	var transportes = #{ }
+	var transportes = #{ avion, barco, micro, tren}
 
 	method localidades() {
 		return localidades
@@ -33,6 +33,18 @@ object barrilete {
 //punto 4
 	method cartaDeDestinos() {
 		return localidades.map{ localidad => localidad.nombre() }
+	}
+	
+	method determinarTransporteEmpresarial(){
+		return transportes.min({unTransporte => unTransporte.tiempoQueTarda()})
+	}
+	
+	method determinarTransporteEstudiantil(unUsuario, unDestino){
+		return transportes.filter{unTransporte => unUsuario.puedePagarTransporteHasta(unTransporte, unDestino) }.min({unTransporte => unTransporte.tiempoQueTarda()})
+	}
+	
+	method determinarTransporteFamiliar(){
+		return transportes.anyOne()
 	}
 }
 
